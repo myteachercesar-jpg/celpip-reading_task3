@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CELPIP Task 3 - Describe a Scene</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f7f9fc;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header img {
+      width: 120px;
+    }
+    header h1 {
+      color: #2a4d8f;
+      margin-top: 10px;
+    }
+    .task-container {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .image-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .image-container img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .instructions {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2a4d8f;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .timer {
+      font-size: 18px;
+      color: #e74c3c;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    button {
+      display: block;
+      background-color: #2a4d8f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px auto;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1f376b;
+    }
+    .result {
+      text-align: center;
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Inglés para Profesionales">
+    <h1>CELPIP Task 3 – Describe a Scene</h1>
+  </header>
+
+  <div class="task-container">
+    <div class="instructions">
+      Describe what you see in this picture.
+    </div>
+    <div class="image-container">
+      <img src="https://cdn.pixabay.com/photo/2016/11/29/04/17/adult-1868750_1280.jpg" alt="Scene to describe">
+    </div>
+    <p>You will have 40 seconds to prepare and 60 seconds to speak.</p>
+    <div class="timer" id="timer">Preparation Time: 40 seconds</div>
+    <button onclick="startTask()">Start Preparation</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    let timeLeft = 40;
+    let phase = "prep"; // "prep" or "speak"
+    let timerInterval;
+
+    function startTask() {
+      document.getElementById("result").innerText = "";
+      timeLeft = 40;
+      phase = "prep";
+      document.getElementById("timer").innerText = "Preparation Time: " + timeLeft + " seconds";
+      timerInterval = setInterval(countDown, 1000);
+    }
+
+    function countDown() {
+      timeLeft--;
+      if (timeLeft >= 0) {
+        document.getElementById("timer").innerText =
+          (phase === "prep" ? "Preparation Time: " : "Speaking Time: ") + timeLeft + " seconds";
+      } else {
+        if (phase === "prep") {
+          // Switch to speaking phase
+          phase = "speak";
+          timeLeft = 60;
+          document.getElementById("timer").innerText = "Speaking Time: 60 seconds";
+        } else {
+          clearInterval(timerInterval);
+          document.getElementById("timer").innerText = "Time's up!";
+          document.getElementById("result").innerText = "Great job! Now reflect on your answer.";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+
